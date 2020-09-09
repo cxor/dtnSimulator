@@ -52,6 +52,8 @@ class Map:
                         print("\u2022", sep=" ", end="")    # road
                     elif self.topology[col][row].get_status() == 2:
                         print("N", sep=" ", end="")
+                    elif self.topology[col][row].get_status() == 3:
+                        print("S", sep=" ", end="")
                     else:
                         # print("\u25cb", sep=" ", end="")
                         print("\u0394", sep=" ", end="")    # obstacle
@@ -164,7 +166,7 @@ class Map:
         available_spaces = []
         for i in range(rows_no):
             for j in range(columns_no):
-                if self.topology[i][j].get_status() == 1:
+                if self.topology[i][j].get_status() == 1 :
                     road_spaces = road_spaces + 1
                     if i!=0 and j!=0:
                         available_spaces.append(self.topology[i][j])    # i don't want to place nodes in the sink
@@ -189,3 +191,20 @@ class Map:
             #print(str(nodes[n].get_position()))
 
         return nodes
+    
+    def add_sinks(self):
+        columns_no = self.size[0]
+        rows_no = self.size[1]
+        
+        available_spaces = []
+        for i in range(rows_no):
+            for j in range(columns_no):
+                if self.topology[i][j].get_status() == 1:
+                    
+                    if i!=0 and j!=0:
+                        available_spaces.append(self.topology[i][j]) 
+        number_of_sinks=4
+        possible_positions = random.sample(available_spaces, number_of_sinks)
+        
+        for n in range(number_of_sinks):
+            self.topology[possible_positions[n].get_coordinates()[0],possible_positions[n].get_coordinates()[1]].status=3

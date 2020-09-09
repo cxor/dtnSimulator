@@ -3,14 +3,21 @@ import math
 import matplotlib.pyplot as plt
 from map import Map
 from node import Node
+from sink import Sink
 
 
 def main():
     nodes = []
     while len(nodes) < 4:       # Voglio una mappa significativa, no?
         simulation_map = Map(topology="roads", size=[20,10])
+        simulation_map.add_sinks()
         nodes = simulation_map.add_nodes()
-
+    
+    
+    
+    
+    
+    
     print("Topology: ")
     simulation_map.draw_topology()
     print("\nInitial condition: ")
